@@ -48,6 +48,7 @@ function build_libgit2 ()
         -DCMAKE_PREFIX_PATH:PATH="${ROOT_PATH}/External/libssh2-ios/bin/${SDKNAME}-${ARCH}.sdk" \
         -DPKG_CONFIG_USE_CMAKE_PREFIX_PATH:BOOL=ON \
         -DCMAKE_INSTALL_PREFIX:PATH="${INSTALL_PREFIX}/" \
+	-DUSE_EXT_HTTP_PARSER:BOOL=OFF \
         -DBUILD_CLAR:BOOL=OFF \
         -DTHREADSAFE:BOOL=ON \
         -DCURL:BOOL=OFF \
