@@ -386,6 +386,19 @@ public final class Repository {
 		return remoteLookup(named: name) { $0.map(Remote.init) }
 	}
 
+	public func addRemote(at remoteURL: URL, named name: String) -> Bool {
+
+		let remoteURLString = (remoteURL as NSURL).isFileReferenceURL() ? remoteURL.path : remoteURL.absoluteString
+		let result = git_remote_add_push(pointer, name, remoteURLString)
+		let result2 = git_remote_add_fetch(pointer, name, remoteURLString)
+		return result == GIT_OK.rawValue && result2 == GIT_OK.rawValue
+	}
+
+	public func deleteRemote(named name: String) -> Bool {
+		let result = git_remote_delete(pointer, name)
+		return result == GIT_OK.rawValue
+	}
+
 	/// Download new data and update tips
 	public func fetch(_ remote: Remote) -> Result<(), NSError> {
 		return remoteLookup(named: remote.name) { remote in
